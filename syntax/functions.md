@@ -19,22 +19,27 @@ def add(x: Int, y: Int): Int =
   x + y
 ```
 
-The signature is just a parenthesised list of patterns, optionally followed by `: ReturnType`. Any
-of the parts can be omitted:
+The signature is a parenthesised list of patterns, optionally followed by `: ReturnType`. The
+type annotations are all-or-nothing: either every parameter has a declared type **and** a return
+type is declared, or no types are declared at all and everything is inferred.
 
 ```nar
 // fully annotated
 def addF(x: Int, y: Int): Int = x + y
 
-// only the return type
-def addR(x, y): Int = x + y
-
-// only the parameter types
-def addP(x: Int, y: Int) = x + y
-
 // no annotations — the compiler will infer
 def addN(x, y) = x + y
 ```
+
+Partial signatures are rejected by the compiler:
+
+- `def f(x: Int, y: Int) = ...` (typed parameters, no return type) fails normalization with
+  `missing return type annotation`.
+- `def f(x, y): Int = ...` (return type, untyped parameters) fails the type checker because the
+  parameter types cannot be unified with the declared function type.
+- `def f(x: Int, y): Int = ...` (some parameters typed) is rejected for the same reason.
+
+If you want to annotate any part of a function, annotate the whole signature.
 
 When **no parameter list** is given, `def` introduces a value rather than a function:
 
