@@ -26,7 +26,14 @@ A native function declaration:
 
 - **must** have a parameter list with all parameter names (or `_`); patterns are not allowed
   because there is no body to bind them in;
-- **may** declare a return type (recommended);
+- **must** have a full type signature whenever any part of it is annotated — every parameter
+  type *and* the return type. Partial signatures are rejected:
+  - `def native foo(x: Int)` fails normalization with `missing return type annotation`;
+  - `def native foo(x): Int` fails the type checker because the parameter type cannot be
+    resolved.
+  In practice every useful native function has fully typed parameters and a declared return
+  type — that is the whole point of `native`, since there is no body for inference to fall back
+  on.
 - works exactly like any other function from the caller's perspective — you can partially apply
   it, pass it as a value, etc.
 
