@@ -12,10 +12,10 @@ A function is introduced by `def`, followed by a name, an optional **signature**
 with optional types and an optional return type), `=`, and a body expression.
 
 ```nar
-def double(x: Int): Int =
+def double(x: Int) -> Int =
   x * 2
 
-def add(x: Int, y: Int): Int =
+def add(x: Int, y: Int) -> Int =
   x + y
 ```
 
@@ -25,7 +25,7 @@ type is declared, or no types are declared at all and everything is inferred.
 
 ```nar
 // fully annotated
-def addF(x: Int, y: Int): Int = x + y
+def addF(x: Int, y: Int) -> Int = x + y
 
 // no annotations — the compiler will infer
 def addN(x, y) = x + y
@@ -35,9 +35,9 @@ Partial signatures are rejected by the compiler:
 
 - `def f(x: Int, y: Int) = ...` (typed parameters, no return type) fails normalization with
   `missing return type annotation`.
-- `def f(x, y): Int = ...` (return type, untyped parameters) fails the type checker because the
+- `def f(x, y) -> Int = ...` (return type, untyped parameters) fails the type checker because the
   parameter types cannot be unified with the declared function type.
-- `def f(x: Int, y): Int = ...` (some parameters typed) is rejected for the same reason.
+- `def f(x: Int, y) -> Int = ...` (some parameters typed) is rejected for the same reason.
 
 If you want to annotate any part of a function, annotate the whole signature.
 
@@ -63,10 +63,10 @@ signature:
 ```nar
 import Nar.Base.Tuple
 
-def first(( x, _ ): ( x, y )): x =
+def first(( x, _ ): ( x, y )) -> x =
   x
 
-def fullName({ first, last }: { first: String, last: String }): String =
+def fullName({ first, last }: { first: String, last: String }) -> String =
   first <> " " <> last
 ```
 
@@ -90,9 +90,9 @@ Calling a function with **fewer** arguments than it declares returns a new funct
 rest:
 
 ```nar
-def add(x: Int, y: Int): Int = x + y
+def add(x: Int, y: Int) -> Int = x + y
 
-def addOne: (Int): Int = add(1)
+def addOne: (Int) -> Int = add(1)
 
 def main: Int = addOne(41)   // 42
 ```
@@ -101,7 +101,7 @@ This is heavily used together with the pipe operators (`|>`, `<|`) and `List.map
 
 ```nar
 def doubled: List[Int] =
-  [1, 2, 3] |> List.map(\(n) -> n * 2)
+  [1, 2, 3] |> List.map(\(n) => n * 2)
 ```
 
 > Pattern‑matching a partial application against multiple "argument groups" is **not** allowed —
@@ -109,25 +109,25 @@ def doubled: List[Int] =
 
 ## Lambdas
 
-A lambda (anonymous function) starts with `\(` and a parameter list, then `->`, then the body
+A lambda (anonymous function) starts with `\(` and a parameter list, then `=>`, then the body
 expression:
 
 ```nar
-def double = \(x: Int) -> x * 2
+def double = \(x: Int) => x * 2
 
-def addOne = \(x: Int): Int -> x + 1
-
-def constUnit = \( () ) -> "no input"
+def constUnit = \( () ) => "no input"
 ```
 
-The parameter list follows exactly the same rules as a `def`'s signature: each slot is a pattern,
-optional return type after `:`. Lambdas are first‑class values.
+The parameter list follows exactly the same rules as a `def`'s signature: each slot is a pattern.
+Unlike `def`, a lambda has **no return‑type annotation** — if you need to ascribe the result type,
+ascribe the surrounding binding instead (e.g. `def f: (Int) -> Int = \(x) => x + 1`). Lambdas are
+first‑class values.
 
 ```nar
 import Nar.Base.List
 
-def odd(xs: List[Int]): List[Int] =
-  List.filter(\(n) -> modBy(2, n) == 1, xs)
+def odd(xs: List[Int]) -> List[Int] =
+  List.filter(\(n) => modBy(2, n) == 1, xs)
 ```
 
 ## Local functions and values: `let`
@@ -136,10 +136,10 @@ Local bindings use `let` (see [control flow](./control-flow.html#let)). Inside `
 either a value binding or a full function definition:
 
 ```nar
-def normalise(s: String): String =
+def normalise(s: String) -> String =
   let
     trimmed = String.trim(s)
-    upper(x): String = String.toUpper(x)
+    upper(x) -> String = String.toUpper(x)
   in
     upper(trimmed)
 ```
@@ -162,9 +162,9 @@ Prefix a `def` with `hidden` to hide it from other modules — it remains usable
 module but is not exposed via `exposing` or via qualified name:
 
 ```nar
-def fact(n: Int): Int = factHelp(1, n)
+def fact(n: Int) -> Int = factHelp(1, n)
 
-def hidden factHelp(acc: Int, n: Int): Int =
+def hidden factHelp(acc: Int, n: Int) -> Int =
   if n <= 1 then acc else factHelp(acc * n, n - 1)
 ```
 
@@ -176,9 +176,9 @@ A `def native` declaration says "this function is provided by the host runtime (
 name". You write the signature but no body:
 
 ```nar
-def native length(s: String): Int
+def native length(s: String) -> Int
 
-def native cons(head: a, tail: List[a]): List[a]
+def native cons(head: a, tail: List[a]) -> List[a]
 ```
 
 See [native declarations](./native.html).
@@ -188,7 +188,7 @@ See [native declarations](./native.html).
 Functions can call themselves directly — there is no special `rec` keyword:
 
 ```nar
-def fact(n: Int): Int =
+def fact(n: Int) -> Int =
   if n <= 1 then 1 else n * fact(n - 1)
 ```
 
@@ -196,11 +196,11 @@ The compiler performs **tail‑call optimisation** on direct tail calls, so writ
 recursive helpers is the normal way to express loops in Nar:
 
 ```nar
-def sum(xs: List[Int]): Int = sumHelp(0, xs)
+def sum(xs: List[Int]) -> Int = sumHelp(0, xs)
 
-def hidden sumHelp(acc: Int, xs: List[Int]): Int =
+def hidden sumHelp(acc: Int, xs: List[Int]) -> Int =
   select xs
-    case []     -> acc
-    case x | xs -> sumHelp(acc + x, xs)
+    case []     => acc
+    case x | xs => sumHelp(acc + x, xs)
   end
 ```

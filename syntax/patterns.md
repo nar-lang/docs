@@ -16,7 +16,7 @@ function parameters, `let` bindings, and `select` / `case` arms.
 `_` matches any value and binds nothing.
 
 ```nar
-def first(p: ( a, b )): a =
+def first(p: ( a, b )) -> a =
   let ( x, _ ) = p
   in x
 ```
@@ -26,7 +26,7 @@ def first(p: ( a, b )): a =
 A lower‑case identifier matches any value and binds it to that name.
 
 ```nar
-def double(x: Int): Int = x * 2
+def double(x: Int) -> Int = x * 2
 ```
 
 ### Literal
@@ -34,10 +34,10 @@ def double(x: Int): Int = x * 2
 Number, character, string and unit literals match their exact value.
 
 ```nar
-def isOne(n: Int): Bool =
+def isOne(n: Int) -> Bool =
   select n
-    case 1 -> True
-    case _ -> False
+    case 1 => True
+    case _ => False
   end
 ```
 
@@ -48,7 +48,7 @@ def isOne(n: Int): Bool =
 `( p1, p2, ... )` matches a tuple element‑wise. The arity must match exactly.
 
 ```nar
-def swap(( a, b ): ( x, y )): ( y, x ) =
+def swap(( a, b ): ( x, y )) -> ( y, x ) =
   ( b, a )
 ```
 
@@ -58,7 +58,7 @@ def swap(( a, b ): ( x, y )): ( y, x ) =
 same name.
 
 ```nar
-def fullName({ first, last }: { first: String, last: String }): String =
+def fullName({ first, last }: { first: String, last: String }) -> String =
   first <> " " <> last
 ```
 
@@ -70,11 +70,11 @@ on the record being matched.
 `[]` matches the empty list. `[p1, p2, p3]` matches a list of exactly that length, element‑wise.
 
 ```nar
-def sum2(xs: List[Int]): Int =
+def sum2(xs: List[Int]) -> Int =
   select xs
-    case []      -> 0
-    case [a, b]  -> a + b
-    case _       -> -1
+    case []      => 0
+    case [a, b]  => a + b
+    case _       => -1
   end
 ```
 
@@ -83,10 +83,10 @@ def sum2(xs: List[Int]): Int =
 `head | tail` matches a non‑empty list. `head` matches the first element, `tail` matches the rest:
 
 ```nar
-def head(xs: List[a]): Maybe[a] =
+def head(xs: List[a]) -> Maybe[a] =
   select xs
-    case x | _ -> Just(x)
-    case []    -> Nothing
+    case x | _ => Just(x)
+    case []    => Nothing
   end
 ```
 
@@ -94,10 +94,10 @@ def head(xs: List[a]): Maybe[a] =
 `y`, `z` and whose tail is `rest`:
 
 ```nar
-def take3(xs: List[a]): List[a] =
+def take3(xs: List[a]) -> List[a] =
   select xs
-    case x | y | z | _ -> [x, y, z]
-    case _             -> xs
+    case x | y | z | _ => [x, y, z]
+    case _             => xs
   end
 ```
 
@@ -108,10 +108,10 @@ constructor](./types.html). The pattern matches values built with that construct
 in parentheses match the payloads positionally:
 
 ```nar
-def describe(m: Maybe[Int]): String =
+def describe(m: Maybe[Int]) -> String =
   select m
-    case Just(n) -> "got " <> String.fromInt(n)
-    case Nothing -> "nothing"
+    case Just(n) => "got " <> String.fromInt(n)
+    case Nothing => "nothing"
   end
 ```
 
@@ -124,11 +124,11 @@ Append `as name` to a pattern to bind the whole matched value to `name` while st
 its parts:
 
 ```nar
-def trim(m: Maybe[String]): Maybe[String] =
+def trim(m: Maybe[String]) -> Maybe[String] =
   select m
-    case Just(s) as orig ->
+    case Just(s) as orig =>
       if String.isEmpty(s) then Nothing else orig
-    case Nothing -> Nothing
+    case Nothing => Nothing
   end
 ```
 
@@ -145,7 +145,7 @@ in
 ```
 
 ```nar
-\(x: Int) -> x + 1
+\(x: Int) => x + 1
 ```
 
 ## Patterns in function signatures
@@ -153,8 +153,8 @@ in
 The parameter list of a `def` or lambda is just a tuple of patterns:
 
 ```nar
-def first(( x, _ ): ( a, b )): a = x
-def addCoords({ x, y }: { x: Int, y: Int }): Int = x + y
+def first(( x, _ ): ( a, b )) -> a = x
+def addCoords({ x, y }: { x: Int, y: Int }) -> Int = x + y
 ```
 
 You can mix annotated and unannotated parameters; only the annotated ones constrain inference.

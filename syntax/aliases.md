@@ -40,7 +40,7 @@ alias Point = { x: Int, y: Int }
 
 def origin: Point = { x = 0, y = 0 }
 
-def translate(dx: Int, dy: Int, p: Point): Point =
+def translate(dx: Int, dy: Int, p: Point) -> Point =
   { p | x = p.x + dx, y = p.y + dy }
 ```
 
@@ -49,7 +49,7 @@ def translate(dx: Int, dy: Int, p: Point): Point =
 ```nar
 alias Pair[a, b] = ( a, b )
 
-def first(p: Pair[a, b]): a =
+def first(p: Pair[a, b]) -> a =
   let ( x, _ ) = p
   in x
 ```
@@ -57,9 +57,9 @@ def first(p: Pair[a, b]): a =
 ### Function type aliases
 
 ```nar
-alias Reducer[a, b] = (a, b): b
+alias Reducer[a, b] = (a, b) -> b
 
-def myFold(f: Reducer[Int, Int], xs: List[Int]): Int =
+def myFold(f: Reducer[Int, Int], xs: List[Int]) -> Int =
   List.foldl(f, 0, xs)
 ```
 

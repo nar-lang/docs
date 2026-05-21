@@ -13,9 +13,9 @@ side states the **types**; the Lua side provides the **implementation**.
 ## Native functions
 
 ```nar
-def native length(s: String): Int
+def native length(s: String) -> Int
 
-def native cons(head: a, tail: List[a]): List[a]
+def native cons(head: a, tail: List[a]) -> List[a]
 ```
 
 The body is implicit: at compile time, the parser turns the declaration into a call to the host
@@ -29,7 +29,7 @@ A native function declaration:
 - **must** have a full type signature whenever any part of it is annotated — every parameter
   type *and* the return type. Partial signatures are rejected:
   - `def native foo(x: Int)` fails normalization with `missing return type annotation`;
-  - `def native foo(x): Int` fails the type checker because the parameter type cannot be
+  - `def native foo(x) -> Int` fails the type checker because the parameter type cannot be
     resolved.
   In practice every useful native function has fully typed parameters and a declared return
   type — that is the whole point of `native`, since there is no body for inference to fall back
@@ -40,7 +40,7 @@ A native function declaration:
 A native function can also be `hidden`:
 
 ```nar
-def hidden native rawSlice(begin: Int, end: Int, s: String): String
+def hidden native rawSlice(begin: Int, end: Int, s: String) -> String
 ```
 
 ## Native values

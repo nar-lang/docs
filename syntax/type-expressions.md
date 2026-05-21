@@ -31,9 +31,9 @@ A name starting with a lower‑case letter is a **type variable** — a placehol
 unified with any concrete type:
 
 ```nar
-def identity(x: a): a = x
+def identity(x: a) -> a = x
 
-def map(f: (a): b, xs: List[a]): List[b] = ...
+def map(f: (a) -> b, xs: List[a]) -> List[b] = ...
 ```
 
 Type parameters are implicitly universally quantified at the start of the type. Within one
@@ -51,9 +51,9 @@ limit which types are allowed:
 | `eq`     | any type that supports `==` | `eq`, `neq`, `Set` membership |
 
 ```nar
-def add(x: number, y: number): number = ...
-def member(x: eq, xs: List[eq]): Bool = ...
-def compare(l: cmp, r: cmp): Order = ...
+def add(x: number, y: number) -> number = ...
+def member(x: eq, xs: List[eq]) -> Bool = ...
+def compare(l: cmp, r: cmp) -> Order = ...
 ```
 
 Within one definition, every occurrence of the same constraint variable must resolve to the same
@@ -61,14 +61,14 @@ concrete type.
 
 ### Function types
 
-A function type is written `(arg1, arg2, ...): result`:
+A function type is written `(arg1, arg2, ...) -> result`:
 
 ```nar
-def map: ((a): b, List[a]): List[b] = ...
-def fold: ((a, b): b, b, List[a]): b = ...
+def map: ((a) -> b, List[a]) -> List[b] = ...
+def fold: ((a, b) -> b, b, List[a]) -> b = ...
 ```
 
-A 0‑argument function type would be ambiguous with `()`, so use unit explicitly: `(()): a`.
+A 0‑argument function type would be ambiguous with `()`, so use unit explicitly: `(()) -> a`.
 
 ### Tuple types
 
@@ -98,7 +98,7 @@ Some standard‑library functions accept any record that **at least** has the li
 declare their argument type as `{ ext | field: T, ... }`, where `ext` is a row variable:
 
 ```nar
-def getX(p: { ext | x: Int }): Int = p.x
+def getX(p: { ext | x: Int }) -> Int = p.x
 ```
 
 You will mostly see this pattern in advanced/library code; in everyday programs, plain closed
@@ -108,10 +108,9 @@ record types are easier to reason about.
 
 | Position | Example |
 |---|---|
-| `def` signature | `def add(x: Int, y: Int): Int = ...` |
+| `def` signature | `def add(x: Int, y: Int) -> Int = ...` |
 | Top‑level value ascription | `def pi: Float = 3.14159` |
 | Pattern ascription | `let x: Int = 1 in x` |
-| Lambda return type | `\(x: Int): Int -> x + 1` |
 | `alias` right‑hand side | `alias Pair[a, b] = ( a, b )` |
 | `type` constructor payload | `type Tree[a] = Leaf \| Node(a, Tree[a], Tree[a])` |
 | `infix` declaration target | implicitly via the referenced function |

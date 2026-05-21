@@ -15,7 +15,7 @@ module Hello
 
 import Nar.Base.String exposing (toUpper)
 
-def greet(name: String): String =
+def greet(name: String) -> String =
   "Hello, " <> toUpper(name) <> "!"
 
 def main: String =

@@ -20,14 +20,14 @@ if condition then expr1 else expr2
 - The `else` branch is **mandatory**.
 
 ```nar
-def abs(n: Int): Int =
+def abs(n: Int) -> Int =
   if n < 0 then -n else n
 ```
 
 `if` chains are just nested `if … then … else if …`:
 
 ```nar
-def signum(n: Int): Int =
+def signum(n: Int) -> Int =
   if n > 0 then 1
   else if n < 0 then -1
   else 0
@@ -40,9 +40,9 @@ def signum(n: Int): Int =
 The simplest form binds a pattern to a value:
 
 ```nar
-def hypot(x: Float, y: Float): Float =
+def hypot(x: Float, y: Float) -> Float =
   let
-    sq = \(n) -> n * n
+    sq = \(n) => n * n
   in
     Math.sqrt(sq(x) + sq(y))
 ```
@@ -50,7 +50,7 @@ def hypot(x: Float, y: Float): Float =
 You can destructure with any [pattern](./patterns.html):
 
 ```nar
-def dist(p: ( Float, Float )): Float =
+def dist(p: ( Float, Float )) -> Float =
   let ( x, y ) = p
   in Math.sqrt(x * x + y * y)
 ```
@@ -59,9 +59,9 @@ You can declare local **functions** with the same syntax as a top‑level `def` 
 `def` keyword):
 
 ```nar
-def collatz(n: Int): Int =
+def collatz(n: Int) -> Int =
   let
-    step(k): Int =
+    step(k) -> Int =
       if modBy(2, k) == 0 then k / 2 else 3 * k + 1
   in
     step(n)
@@ -73,7 +73,7 @@ You may write several `let` clauses without intermediate `in`s — only the fina
 `in`:
 
 ```nar
-def stats(xs: List[Int]): ( Int, Int ) =
+def stats(xs: List[Int]) -> ( Int, Int ) =
   let n   = List.length(xs)
   let sum = List.sum(xs)
   in ( n, sum )
@@ -88,8 +88,8 @@ binding can be recursive.
 
 ```nar
 select expr
-  case pattern1 -> result1
-  case pattern2 -> result2
+  case pattern1 => result1
+  case pattern2 => result2
   ...
 end
 ```
@@ -104,22 +104,22 @@ type Shape
   | Square(Float)
   | Rectangle(Float, Float)
 
-def area(s: Shape): Float =
+def area(s: Shape) -> Float =
   select s
-    case Circle(r)         -> 3.14159 * r * r
-    case Square(side)      -> side * side
-    case Rectangle(w, h)   -> w * h
+    case Circle(r)         => 3.14159 * r * r
+    case Square(side)      => side * side
+    case Rectangle(w, h)   => w * h
   end
 ```
 
 You can pattern‑match on tuples to "switch on multiple values at once":
 
 ```nar
-def merge(a: List[Int], b: List[Int]): List[Int] =
+def merge(a: List[Int], b: List[Int]) -> List[Int] =
   select ( a, b )
-    case ( [], ys )                 -> ys
-    case ( xs, [] )                 -> xs
-    case ( x | xr, y | yr ) ->
+    case ( [], ys )                 => ys
+    case ( xs, [] )                 => xs
+    case ( x | xr, y | yr ) =>
       if x <= y
         then x | merge(xr, b)
         else y | merge(a, yr)
@@ -129,14 +129,14 @@ def merge(a: List[Int], b: List[Int]): List[Int] =
 The wildcard pattern `_` is the catch‑all "default" case:
 
 ```nar
-def isVowel(c: Char): Bool =
+def isVowel(c: Char) -> Bool =
   select c
-    case 'a' -> True
-    case 'e' -> True
-    case 'i' -> True
-    case 'o' -> True
-    case 'u' -> True
-    case _   -> False
+    case 'a' => True
+    case 'e' => True
+    case 'i' => True
+    case 'o' => True
+    case 'u' => True
+    case _   => False
   end
 ```
 
@@ -148,10 +148,10 @@ When you're sketching code, `Nar.Base.Debug.todo` is a function returning `a` fo
 crashes if it is ever evaluated. Useful inside an `if` or `select`:
 
 ```nar
-def parseColor(s: String): Color =
+def parseColor(s: String) -> Color =
   select s
-    case "red"   -> Red
-    case "green" -> Green
-    case _       -> Debug.todo("more colors please")
+    case "red"   => Red
+    case "green" => Green
+    case _       => Debug.todo("more colors please")
   end
 ```

@@ -169,10 +169,10 @@ above will consider, including resolution via fully qualified name:
 ```nar
 module Math.Stats
 
-def mean(xs: List[Float]): Float =
+def mean(xs: List[Float]) -> Float =
   total(xs) / Math.toFloat(List.length(xs))
 
-def hidden total(xs: List[Float]): Float =
+def hidden total(xs: List[Float]) -> Float =
   List.foldl((+), 0.0, xs)
 ```
 

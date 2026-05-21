@@ -28,8 +28,8 @@ their literal form.
 meaningful value":
 
 ```nar
-def hello: ( () ): String =
-  \( () ) -> "hello"
+def hello: ( () ) -> String =
+  \( () ) => "hello"
 ```
 
 `Unit` can also pattern‑match as `()`.
@@ -95,7 +95,7 @@ There are no triple‑quoted or raw strings; embed `\n`, `\t`, etc. as needed.
 The `<>` operator from `Nar.Base.String` concatenates strings:
 
 ```nar
-def greet(name: String): String =
+def greet(name: String) -> String =
   "Hello, " <> name <> "!"
 ```
 

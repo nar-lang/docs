@@ -26,10 +26,10 @@ type Greeting
   | Casual(Name)
 
 // Functions are just `def`s with parameters.
-def render(g: Greeting): String =
+def render(g: Greeting) -> String =
   select g
-    case Formal(n) -> "Good day, " <> toUpper(n) <> "."
-    case Casual(n) -> "Hey " <> n <> "!"
+    case Formal(n) => "Good day, " <> toUpper(n) <> "."
+    case Casual(n) => "Hey " <> n <> "!"
   end
 ```
 
@@ -52,18 +52,18 @@ def origin: { x: Int, y: Int } = { x = 0, y = 0 }
 ### Functions
 
 ```nar
-def double(x: Int): Int =
+def double(x: Int) -> Int =
   x * 2
 
-def add(x: Int, y: Int): Int =
+def add(x: Int, y: Int) -> Int =
   x + y
 
 // Functions are first-class values:
-def addOne: (Int): Int =
+def addOne: (Int) -> Int =
   add(1)            // partial application
 
 // Lambdas:
-def triple = \(x: Int) -> x * 3
+def triple = \(x: Int) => x * 3
 ```
 
 ### Pattern matching
@@ -73,10 +73,10 @@ type Shape
   = Circle(radius: Float)
   | Rectangle(width: Float, height: Float)
 
-def area(s: Shape): Float =
+def area(s: Shape) -> Float =
   select s
-    case Circle(r)         -> 3.14159 * r * r
-    case Rectangle(w, h)   -> w * h
+    case Circle(r)         => 3.14159 * r * r
+    case Rectangle(w, h)   => w * h
   end
 ```
 
@@ -85,10 +85,10 @@ def area(s: Shape): Float =
 ```nar
 import Nar.Base.List exposing (map, filter)
 
-def evenSquares(xs: List[Int]): List[Int] =
+def evenSquares(xs: List[Int]) -> List[Int] =
   xs
-    |> filter(\(n) -> modBy(2, n) == 0)
-    |> map(\(n) -> n * n)
+    |> filter(\(n) => modBy(2, n) == 0)
+    |> map(\(n) => n * n)
 ```
 
 ## How to read this guide

@@ -70,7 +70,7 @@ A Nar program is a sequence of these tokens:
 | Number literal | `0`, `42`, `0xFF`, `0b1010`, `0o755`, `3.14`, `2.5e-3` |
 | String literal | `"hello"`, `"line\nbreak"`, `"snow \u2603"` |
 | Character literal | `'a'`, `'\n'`, `'\u00e9'` |
-| Punctuation | `(` `)` `[` `]` `{` `}` `,` `:` `=` `\|` `_` `.` `\` `->` |
+| Punctuation | `(` `)` `[` `]` `{` `}` `,` `:` `=` `\|` `_` `.` `\` `->` `=>` |
 | Infix operator | one or more characters from `! # $ % & * + - / : ; < = > ? ^ \| ~ \`` |
 
 > Note: `\(` (backslash + open paren) starts a [lambda](./functions.html#lambdas).

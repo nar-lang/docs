@@ -19,7 +19,7 @@ In Nar, **case carries meaning**.
 def myValue: Int = 1                  // lower-case → value
 type Color = Red | Green | Blue       // upper-case → type and constructors
 type List[a] = ...                    // lower-case `a` → type parameter
-def first(point: { x: Int }): Int =   // lower-case `x` → field
+def first(point: { x: Int }) -> Int =   // lower-case `x` → field
   point.x
 ```
 
@@ -41,7 +41,7 @@ After the first character, an identifier may contain any combination of:
 ```nar
 def x: Int = 1
 def index_2: Int = 2
-def helper`v2(x: Int): Int = x + 1
+def helper`v2(x: Int) -> Int = x + 1
 ```
 
 `_` by itself is not an identifier — it is the [wildcard pattern](./patterns.html).

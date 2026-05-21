@@ -61,7 +61,7 @@ type Result[error, value]
 The constructors take payload values:
 
 ```nar
-def safeDivide(x: Int, y: Int): Maybe[Int] =
+def safeDivide(x: Int, y: Int) -> Maybe[Int] =
   if y == 0 then Nothing else Just(x / y)
 ```
 
@@ -79,12 +79,12 @@ type Shape
 Labels do not change how you construct or destructure — payloads are still positional:
 
 ```nar
-def square(s: Float): Shape = Rectangle(s, s)
+def square(s: Float) -> Shape = Rectangle(s, s)
 
-def area(sh: Shape): Float =
+def area(sh: Shape) -> Float =
   select sh
-    case Circle(r)       -> 3.14159 * r * r
-    case Rectangle(w, h) -> w * h
+    case Circle(r)       => 3.14159 * r * r
+    case Rectangle(w, h) => w * h
   end
 ```
 
@@ -99,10 +99,10 @@ type Tree[a]
 ```
 
 ```nar
-def depth(t: Tree[a]): Int =
+def depth(t: Tree[a]) -> Int =
   select t
-    case Leaf            -> 0
-    case Node(_, l, r)   -> 1 + max(depth(l), depth(r))
+    case Leaf            => 0
+    case Node(_, l, r)   => 1 + max(depth(l), depth(r))
   end
 ```
 
@@ -115,7 +115,7 @@ functions:
 ```nar
 import Nar.Base.List
 
-def justAll(xs: List[Int]): List[Maybe[Int]] =
+def justAll(xs: List[Int]) -> List[Maybe[Int]] =
   List.map(Just, xs)
 ```
 
@@ -125,20 +125,20 @@ To inspect a custom type, use [`select` / `case`](./control-flow.html#select). T
 constructor `Foo(a, b)` is written `Foo(p1, p2)`; for a 0‑payload constructor it is just `Foo`:
 
 ```nar
-def isJust(m: Maybe[a]): Bool =
+def isJust(m: Maybe[a]) -> Bool =
   select m
-    case Just(_) -> True
-    case Nothing -> False
+    case Just(_) => True
+    case Nothing => False
   end
 ```
 
 You can also bind the whole value with `as`:
 
 ```nar
-def describe(m: Maybe[Int]): String =
+def describe(m: Maybe[Int]) -> String =
   select m
-    case Just(n) as v -> "got " <> Debug.toString(v)
-    case Nothing      -> "nothing"
+    case Just(n) as v => "got " <> Debug.toString(v)
+    case Nothing      => "nothing"
   end
 ```
 

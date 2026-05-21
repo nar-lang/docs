@@ -45,7 +45,7 @@ def y: Int = Tuple.second(( 3, 4 ))    // 4
 plain destructuring:
 
 ```nar
-def first(( x, _ ): ( x, y )): x = x
+def first(( x, _ ): ( x, y )) -> x = x
 ```
 
 ## Destructuring
@@ -54,10 +54,10 @@ A tuple pattern is just `( p1, p2, ... )` and can appear anywhere a pattern can 
 parameters, `let`, `select`:
 
 ```nar
-def addPair(( a, b ): ( Int, Int )): Int =
+def addPair(( a, b ): ( Int, Int )) -> Int =
   a + b
 
-def swap(p: ( a, b )): ( b, a ) =
+def swap(p: ( a, b )) -> ( b, a ) =
   let ( x, y ) = p
   in  ( y, x )
 ```
@@ -66,11 +66,11 @@ When the tuple is the scrutinee of a `select`, several positional cases at once 
 natural:
 
 ```nar
-def merge(a: List[Int], b: List[Int]): List[Int] =
+def merge(a: List[Int], b: List[Int]) -> List[Int] =
   select ( a, b )
-    case ( [], ys )         -> ys
-    case ( xs, [] )         -> xs
-    case ( x | xr, y | yr ) ->
+    case ( [], ys )         => ys
+    case ( xs, [] )         => xs
+    case ( x | xr, y | yr ) =>
       if x <= y then x | merge(xr, b) else y | merge(a, yr)
   end
 ```

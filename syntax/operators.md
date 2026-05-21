@@ -16,7 +16,7 @@ Operators are written between their two operands:
 ```nar
 def total: Int = 1 + 2 + 3
 def hello: String = "Hello, " <> name
-def doubled: List[Int] = xs |> List.map(\(n) -> n * 2)
+def doubled: List[Int] = xs |> List.map(\(n) => n * 2)
 ```
 
 To use the **underlying function** as a value (for example to pass to `List.foldl`), wrap the
@@ -107,8 +107,8 @@ List.foldl((+), 0)
 Function composition operators `<~` and `~>` build a new function from two existing ones:
 
 ```nar
-def shout: (String): String = String.toUpper ~> String.reverse
-// shout = \(x) -> String.reverse(String.toUpper(x))
+def shout: (String) -> String = String.toUpper ~> String.reverse
+// shout = \(x) => String.reverse(String.toUpper(x))
 ```
 
 ## Prefix `-`
@@ -134,7 +134,7 @@ module MyApp.Pipes
 
 infix (>>=) : (left 1) = andThen
 
-def andThen(callback: (a): Maybe[b], m: Maybe[a]): Maybe[b] =
+def andThen(callback: (a) -> Maybe[b], m: Maybe[a]) -> Maybe[b] =
   Maybe.andThen(callback, m)
 ```
 

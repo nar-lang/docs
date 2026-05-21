@@ -40,7 +40,7 @@ Each field name also has a corresponding **accessor function** written `.fieldNa
 ```nar
 import Nar.Base.List
 
-def names(people: List[{ name: String }]): List[String] =
+def names(people: List[{ name: String }]) -> List[String] =
   List.map(.name, people)
 ```
 
@@ -72,7 +72,7 @@ def moved: { x: Int, y: Int } =
 A record pattern lists the field names you care about between `{ ... }`:
 
 ```nar
-def fullName({ first, last }: { first: String, last: String }): String =
+def fullName({ first, last }: { first: String, last: String }) -> String =
   first <> " " <> last
 ```
 

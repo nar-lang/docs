@@ -40,20 +40,20 @@ The two basic list patterns are `[]` (empty list) and `head | tail` (non‑empty
 `head`, tail to `tail`):
 
 ```nar
-def length(xs: List[a]): Int =
+def length(xs: List[a]) -> Int =
   select xs
-    case []     -> 0
-    case _ | xs -> 1 + length(xs)
+    case []     => 0
+    case _ | xs => 1 + length(xs)
   end
 ```
 
 You can also write a fixed‑size list pattern, with each element as its own pattern:
 
 ```nar
-def sumPair(xs: List[Int]): Int =
+def sumPair(xs: List[Int]) -> Int =
   select xs
-    case [a, b] -> a + b
-    case _      -> 0
+    case [a, b] => a + b
+    case _      => 0
   end
 ```
 
@@ -61,10 +61,10 @@ Combine `|` with multiple positional patterns to peek at the first few elements 
 rest:
 
 ```nar
-def take3(xs: List[a]): List[a] =
+def take3(xs: List[a]) -> List[a] =
   select xs
-    case x | y | z | _ -> [x, y, z]
-    case _             -> xs
+    case x | y | z | _ => [x, y, z]
+    case _             => xs
   end
 ```
 
@@ -84,10 +84,10 @@ The [`Nar.Base.List`](https://github.com/nar-lang/Nar.Base) module provides:
 ```nar
 import Nar.Base.List
 
-def evenSquares(xs: List[Int]): List[Int] =
+def evenSquares(xs: List[Int]) -> List[Int] =
   xs
-    |> List.filter(\(n) -> modBy(2, n) == 0)
-    |> List.map(\(n) -> n * n)
+    |> List.filter(\(n) => modBy(2, n) == 0)
+    |> List.map(\(n) => n * n)
 ```
 
 ## Lists vs. arrays
