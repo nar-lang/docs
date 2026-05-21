@@ -62,34 +62,51 @@ representation lives in the host runtime. All standard primitive types are decla
 
 ## Companion Lua files
 
-A typical Nar package has this layout:
+A package that exposes natives ships an `init.lua` next to its `nar.json`. Nar itself does not
+prescribe any package-internal directory layout: `.nar` files can live wherever the package
+author chooses, and there is no `<PkgName>/<SubModule>.lua` shim convention. Everything the Lua
+side needs to provide is registered from one entry point.
 
-```
-MyPkg/
-├── nar.json
-├── init.lua            # registers native bindings with the runtime
-├── MyPkg/
-│   ├── Foo.nar
-│   └── Foo.lua         # Lua-side native implementations for Foo
-└── ...
-```
+The Lua host (Lunar's `lunar` runner, or any embedder using `lunar.runtime`) loads `init.lua`
+once before any Nar module from the package is evaluated. The file is **executed for its side
+effects** — it does not need to `return` a module table. Inside it, each native is registered
+against its fully‑qualified Nar name with `rt:registerDef(moduleName, defName, fn, arity)`.
 
-The `init.lua` file is loaded by the Lua host (or by Lunar's `lunar` runner) before any Nar
-module from the package is evaluated. A typical pattern looks like:
+The canonical example is [`Nar.Base/init.lua`](https://github.com/nar-lang/Nar.Base/blob/main/init.lua).
+A representative excerpt:
 
 ```lua
-local M = {}
+-- init.lua at the root of the package
+local rt = require("lunar.runtime")
 
-function M.MyPkg_Foo_double(x)
-  return x * 2
-end
+rt:registerDef("Nar.Base.Math", "add", function(rt, x, y)
+    return rt:makeInt(x.value + y.value)
+end, 2)
 
-return M
+rt:registerDef("Nar.Base.String", "length", function(rt, s)
+    return rt:makeInt(#rt:toString(s))
+end, 1)
+
+rt:registerDef("Nar.Base.Char", "toCode", function(rt, char)
+    return rt:makeInt(char.value)
+end, 1)
 ```
 
-How exactly natives are registered (function names, value boxing, error handling) is the runtime's
-concern — see [`Nar.Base/init.lua`](https://github.com/nar-lang/Nar.Base/blob/main/init.lua) and
-[Lunar's runtime](https://github.com/nar-lang/lunar/tree/main/runtime) for the canonical example.
+Notes on what's going on:
+
+- The first two arguments to `registerDef` are the Nar module name (as declared by its
+  `module ...` directive) and the bare definition name. Together they form the fully‑qualified
+  name the compiler emits for a `def native` call.
+- The function receives the runtime as its first parameter and the Nar arguments after that.
+  It must return a runtime `Object` (use the `rt:makeInt`, `rt:makeFloat`, `rt:makeString`,
+  `rt:makeBool`, `rt:makeList`, `rt:makeUnit`, … helpers).
+- The trailing integer is the arity — how many Nar arguments the function takes. It must match
+  the parameter list on the Nar side.
+- Use the `rt:toString`, `rt:toInt`, `rt:toBool`, `rt:toList` helpers to unwrap incoming Nar
+  values. Primitive boxes also expose `.value` directly.
+
+See [Lunar's runtime](https://github.com/nar-lang/lunar/tree/main/runtime) for the full set of
+helpers and the `Object` model.
 
 ## When to use natives
 
