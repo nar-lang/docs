@@ -101,7 +101,7 @@ def greet(name: String): String =
 
 Because `String` is an opaque alias around the host's string type, all string operations live in
 `Nar.Base.String` (`length`, `slice`, `split`, `join`, `toUpper`, `toLower`, `trim`, …).
-See [stdlib/string](../stdlib/string.html).
+See the [`Nar.Base`](https://github.com/nar-lang/Nar.Base) repository for details.
 
 ## Lists, tuples and records
 

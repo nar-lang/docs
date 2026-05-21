@@ -13,19 +13,17 @@ site directly from this repository.
 ├── _config.yml          # Jekyll / GitHub Pages configuration
 ├── index.md             # Site landing page
 ├── intro.md             # Getting started
-├── syntax/              # Language reference (one topic per page)
-└── stdlib/              # Standard library reference (Nar.Base, Nar.Tests)
+└── syntax/              # Language reference (one topic per page)
 ```
 
 ## Sources of truth
 
-The syntax described in these documents is derived from:
+The syntax described in these documents is derived from the Lunar compiler's parser:
+[`nar-lang/lunar/compiler/parser.lua`](https://github.com/nar-lang/lunar/blob/main/compiler/parser.lua).
 
-- The Lunar compiler's parser:
-  [`nar-lang/lunar/compiler/parser.lua`](https://github.com/nar-lang/lunar/blob/main/compiler/parser.lua)
-- The standard library: [`nar-lang/Nar.Base`](https://github.com/nar-lang/Nar.Base)
-- The test framework: [`nar-lang/Nar.Tests`](https://github.com/nar-lang/Nar.Tests)
-- Worked examples: [`nar-lang/Nar.Base.Tests`](https://github.com/nar-lang/Nar.Base.Tests)
+Package documentation (including the standard library
+[`Nar.Base`](https://github.com/nar-lang/Nar.Base) and the test framework
+[`Nar.Tests`](https://github.com/nar-lang/Nar.Tests)) lives in each package's own repository.
 
 ## Contributing
 

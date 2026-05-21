@@ -70,7 +70,7 @@ def take3(xs: List[a]): List[a] =
 
 ## Standard list functions
 
-The [`Nar.Base.List`](../stdlib/list.html) module provides:
+The [`Nar.Base.List`](https://github.com/nar-lang/Nar.Base) module provides:
 
 - Construction: `singleton`, `repeat`, `range`, `cons`
 - Inspection: `isEmpty`, `length`, `head`, `tail`, `member`
@@ -92,5 +92,5 @@ def evenSquares(xs: List[Int]): List[Int] =
 
 ## Lists vs. arrays
 
-If you need fast random access, use [`Array`](../stdlib/array.html) instead — it is a chunked
+If you need fast random access, use `Nar.Base.Array` instead — it is a chunked
 immutable vector. Lists are best when you process from the front and recurse on the tail.

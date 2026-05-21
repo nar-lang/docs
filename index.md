@@ -55,23 +55,9 @@ def main: String =
 | Modules & `import` | [syntax/modules](./syntax/modules.html) |
 | `native` declarations | [syntax/native](./syntax/native.html) |
 
-### 3. Standard library
+### 3. Standard library and packages
 
-The standard library lives in [`Nar.Base`](https://github.com/nar-lang/Nar.Base):
+Per-package documentation lives alongside each package's source:
 
-- [Basics](./stdlib/basics.html) — booleans, comparison, function helpers
-- [Math](./stdlib/math.html) — `Int`, `Float`, arithmetic
-- [Bitwise](./stdlib/bitwise.html)
-- [String](./stdlib/string.html)
-- [Char](./stdlib/char.html)
-- [List](./stdlib/list.html)
-- [Maybe](./stdlib/maybe.html)
-- [Result](./stdlib/result.html)
-- [Tuple](./stdlib/tuple.html)
-- [Dict](./stdlib/dict.html)
-- [Set](./stdlib/set.html)
-- [Array](./stdlib/array.html)
-- [Queue](./stdlib/queue.html)
-- [Debug](./stdlib/debug.html)
-
-For tests, see [`Nar.Tests`](https://github.com/nar-lang/Nar.Tests).
+- Standard library: [`Nar.Base`](https://github.com/nar-lang/Nar.Base)
+- Test framework: [`Nar.Tests`](https://github.com/nar-lang/Nar.Tests)

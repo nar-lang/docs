@@ -41,7 +41,7 @@ def y: Int = Tuple.second(( 3, 4 ))    // 4
 ```
 
 `Tuple.first`, `Tuple.second`, `Tuple.mapFirst`, `Tuple.mapSecond`, `Tuple.mapBoth` and
-`Tuple.pair` are defined in [`Nar.Base.Tuple`](../stdlib/tuple.html). All of them are written using
+`Tuple.pair` are defined in [`Nar.Base.Tuple`](https://github.com/nar-lang/Nar.Base). All of them are written using
 plain destructuring:
 
 ```nar
