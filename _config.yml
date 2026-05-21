@@ -1,0 +1,22 @@
+title: Nar Language Documentation
+description: Reference and guide for the Nar programming language — a small, pure functional language that runs on top of Lua.
+theme: jekyll-theme-cayman
+markdown: kramdown
+kramdown:
+  input: GFM
+  syntax_highlighter: rouge
+
+# Files that are not part of the published site
+exclude:
+  - LICENSE
+  - README.md
+  - "*.gemspec"
+  - vendor/
+  - Gemfile
+  - Gemfile.lock
+
+defaults:
+  - scope:
+      path: ""
+    values:
+      layout: default
