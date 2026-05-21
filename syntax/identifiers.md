@@ -8,7 +8,7 @@ title: Identifiers & naming
 
 ## Lower‑case vs. upper‑case
 
-Nar follows the same naming rule as Elm: **case carries meaning**.
+In Nar, **case carries meaning**.
 
 | Starts with | Used for |
 |---|---|

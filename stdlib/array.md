@@ -7,7 +7,7 @@ title: Standard library — Array
 [← Back to index](../index.html)
 
 `Array[a]` is an immutable indexed sequence, implemented as a 32‑way Relaxed‑Radix‑Balanced
-tree (the same data structure used by Elm and Clojure). It gives you near‑O(1) indexing and
+tree. It gives you near‑O(1) indexing and
 update, with `O(log32 n)` worst case — much faster than a `List` for random access.
 
 ```nar

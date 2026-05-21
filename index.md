@@ -4,9 +4,9 @@ title: Nar Language
 
 # The Nar Programming Language
 
-**Nar** is a small, statically typed, pure functional programming language. It is heavily inspired
-by [Elm](https://elm-lang.org/): same minimal surface, same algebraic data types, same
-"if it compiles, it works" feeling. Unlike Elm, Nar is designed to be **embedded** — the reference
+**Nar** is a small, statically typed, pure functional programming language with a minimal surface,
+algebraic data types, and an "if it compiles, it works" feeling. Nar is designed to be
+**embedded** — the reference
 implementation, [Lunar](https://github.com/nar-lang/lunar), compiles Nar source to bytecode that
 runs on top of Lua, so you can drop Nar into any application that already runs Lua scripts.
 

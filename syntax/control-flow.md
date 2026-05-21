@@ -84,8 +84,7 @@ binding can be recursive.
 
 ## `select`
 
-`select` is Nar's pattern‑match expression. It corresponds to `case ... of` in Elm or `match` in
-Rust:
+`select` is Nar's pattern‑match expression:
 
 ```nar
 select expr

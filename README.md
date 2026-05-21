@@ -1,8 +1,7 @@
 # Nar Documentation
 
 This repository contains the language documentation for [**Nar**](https://github.com/nar-lang) — a small,
-pure functional programming language inspired by [Elm](https://elm-lang.org/) and designed to be
-embedded into host applications via Lua.
+pure functional programming language designed to be embedded into host applications via Lua.
 
 The documentation is written in Markdown and is published as a [GitHub Pages](https://pages.github.com/)
 site directly from this repository.

@@ -57,8 +57,7 @@ def pi: Float = 3.141592653589793
 def e:  Float = 2.718281828459045
 ```
 
-`remainderBy` follows the sign of the dividend; `modBy` follows the sign of the divisor (Elm
-conventions).
+`remainderBy` follows the sign of the dividend; `modBy` follows the sign of the divisor.
 
 ## Examples
 
